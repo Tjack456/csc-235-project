@@ -14,7 +14,7 @@ ini_set('display_errors', 'On');
 /* the first connection to the database */
 DEFINE('DB_HOST', "localhost");
 DEFINE('DB_USER', "root");
-DEFINE('DB_PASSWORD', "csc540data"); //Note: this should be your root password
+DEFINE('DB_PASSWORD', ""); //Note: this should be your root password
 
 // Establish the initial database connection
 try {
@@ -250,7 +250,7 @@ $insert_credentials->close();
 /* Status Display */
 echo nl2br("The database tables were successfully populated.\r\n");
 /* Return to homepage after 5 seconds */
-header( "refresh:10;url=/csc540_login" );
+header( "refresh:10;url=/csc235_login" );
 
 /* ALWAYS CLOSE THE DB CONNECTION */
 $db_connection->close();

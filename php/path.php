@@ -3,7 +3,7 @@
 // DATABASE CONNECTION
 //======================================================================
 
-$directory = "/csc540_login"; // Change to your project folder
+$directory = "/csc235_login"; // Change to your project folder
 
 /* Define base url path */
 DEFINE("BASE_URL", $directory);
