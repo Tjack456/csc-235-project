@@ -6,6 +6,7 @@
  * @copyright 2026 
  * @date      2026-02-24
  * @version   1.0
+ * new update: 2026-06-01
  */
 error_reporting(E_ALL); // Report all errors
 ini_set('display_errors', 0); // set to 1 to display errors, 0 to hide them
