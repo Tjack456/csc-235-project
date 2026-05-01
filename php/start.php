@@ -92,9 +92,8 @@ $create_contacts->execute();
 $create_contacts->close();
 
 /* Customers */
-
 $create_customers = $db_connection->prepare(
-    "CREATE TABLE IF NOT EXISTS Customers(
+    "CREATE OR REPLACE TABLE Customers(
         customer_id int NOT NULL AUTO_INCREMENT,
         first_name varchar(50) NOT NULL,
         last_name varchar(50) NOT NULL,
@@ -213,7 +212,7 @@ $country = "AK";
 $created_at = date("Y-m-d H:i:s");
 $insert_customers->execute();
 
-$insert_contacts->close();
+$insert_customers->close();
 
 /* Users */
 $insert_users = $db_connection->prepare(
