@@ -91,21 +91,30 @@ $create_contacts = $db_connection->prepare(
 $create_contacts->execute();
 $create_contacts->close();
 /* Customers */
+/* Customers */
 $create_customers = $db_connection->prepare(
-	"CREATE OR REPLACE TABLE customers(
+    "CREATE OR REPLACE TABLE customers(
         customer_id int NOT NULL AUTO_INCREMENT,
         first_name varchar(50) NOT NULL,
         last_name varchar(50) NOT NULL,
         email varchar(100) NOT NULL UNIQUE,
-        phone varchar(20) 
+        phone varchar(20),
         address varchar(255),
         city varchar(100),
         country varchar(100) NOT NULL DEFAULT 'USA',
-        created_at TIMESTAMP NOT NULL DEFAULT NOW()
-        PRIMARY KEY(customer_id));");
-$create_customers->execute();
-$create_customers->close();
+        created_at TIMESTAMP NOT NULL DEFAULT NOW(),
+        PRIMARY KEY(customer_id))");
 
+if (!$create_customers) {
+    die("Prepare failed: " . $db_connection->error);
+}
+
+if (!$create_customers->execute()) {
+    die("Execute failed: " . $create_customers->error);
+}
+
+$create_customers->close();
+echo "Customers table created successfully.<br>";
 
 /* Below Are Tables That Have Foreign Keys */
 /* ------------------------------------------ */
