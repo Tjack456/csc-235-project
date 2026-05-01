@@ -38,7 +38,7 @@ $prep_stmt->execute();
 $prep_stmt->close();
 
 /* Change to the created database */
-$db_connection->select_db("login_db");
+$db_connection->select_db("Login DB");
 
 /* Drop all tables for clean install */
 $db_connection->query('SET foreign_key_checks = 0');
@@ -66,45 +66,45 @@ echo "Table creation started." . nl2br("\r\n");
 
 /* Role */
 $create_roles = $db_connection->prepare(
-        "CREATE TABLE IF NOT EXISTS Roles(
-                role_id int NOT NULL AUTO_INCREMENT,
-                role_type varchar(255) NOT NULL,
-                PRIMARY KEY(role_id));");
+	"CREATE OR REPLACE TABLE Roles(
+        role_id int NOT NULL AUTO_INCREMENT,
+        role_type varchar(255) NOT NULL,
+        PRIMARY KEY(role_id));");
 $create_roles->execute();
 $create_roles->close();
 
 /* Contacts */
 $create_contacts = $db_connection->prepare(
-        "CREATE TABLE IF NOT EXISTS Contacts(
-                contact_id int NOT NULL AUTO_INCREMENT,
-                last_name varchar(255) NOT NULL,
-                first_name varchar(255) NOT NULL,
-                email varchar(255) NOT NULL,
-                phone varchar(255) NOT NULL,
-                street_1 varchar(255),
-                street_2 varchar(255),
-                city varchar(255),
-                state_code varchar(255),
-                post_code int(5),
-                updated timestamp,
-                PRIMARY KEY(contact_id));");
+	"CREATE OR REPLACE TABLE Contacts(
+        contact_id int NOT NULL AUTO_INCREMENT,
+        last_name varchar(255) NOT NULL,
+        first_name varchar(255) NOT NULL,
+        email varchar(255) NOT NULL,
+        phone varchar(255) NOT NULL,
+        street_1 varchar(255),
+        street_2 varchar(255),
+        city varchar(255),
+        state_code varchar(255),
+        post_code int(5),
+        updated timestamp,
+        PRIMARY KEY(contact_id));");
 $create_contacts->execute();
 $create_contacts->close();
 
 /* Customers */
 
 $create_customers = $db_connection->prepare(
-        "CREATE TABLE IF NOT EXISTS customers(
-                customer_id int NOT NULL AUTO_INCREMENT,
-                first_name varchar(50) NOT NULL,
-                last_name varchar(50) NOT NULL,
-                email varchar(100) NOT NULL UNIQUE,
-                phone varchar(20),
-                address varchar(255),
-                city varchar(100),
-                country varchar(100) NOT NULL DEFAULT 'USA',
-                created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-                PRIMARY KEY(customer_id))");
+    "CREATE TABLE IF NOT EXISTS Customers(
+        customer_id int NOT NULL AUTO_INCREMENT,
+        first_name varchar(50) NOT NULL,
+        last_name varchar(50) NOT NULL,
+        email varchar(100) NOT NULL UNIQUE,
+        phone varchar(20),
+        address varchar(255),
+        city varchar(100),
+        country varchar(100) NOT NULL DEFAULT 'USA',
+        created_at TIMESTAMP NOT NULL DEFAULT NOW(),
+        PRIMARY KEY(customer_id))");
 $create_customers->execute();
 $create_customers->close();
 
@@ -114,25 +114,25 @@ $create_customers->close();
 
 /* Users */
 $create_users = $db_connection->prepare(
-        "CREATE TABLE IF NOT EXISTS Users(
-                user_id int NOT NULL AUTO_INCREMENT,
-                role_id int NOT NULL,
-                contact_id int NOT NULL,
-        	creation_date timestamp,
-        	PRIMARY KEY(user_id),
-                FOREIGN KEY(role_id) REFERENCES Roles(role_id),
-                FOREIGN KEY(contact_id) REFERENCES Contacts(contact_id));");
+	"CREATE OR REPLACE TABLE Users(
+        user_id int NOT NULL AUTO_INCREMENT,
+        role_id int NOT NULL,
+        contact_id int NOT NULL,
+	    creation_date timestamp,
+	    PRIMARY KEY(user_id),
+        FOREIGN KEY(role_id) REFERENCES Roles(role_id),
+        FOREIGN KEY(contact_id) REFERENCES Contacts(contact_id));");
 $create_users->execute();
 $create_users->close();
 
 /* Credentials */
 $create_credentials = $db_connection->prepare(
-        "CREATE TABLE IF NOT EXISTS Credentials(
-                username varchar(255) NOT NULL,
-        	user_id int NOT NULL,
-                password_salted varchar(255) NOT NULL,
-        	PRIMARY KEY(username),
-                FOREIGN KEY(user_id) REFERENCES Users(user_id));");
+	"CREATE OR REPLACE TABLE Credentials(
+        username varchar(255) NOT NULL,
+	    user_id int NOT NULL,
+        password_salted varchar(255) NOT NULL,
+	    PRIMARY KEY(username),
+        FOREIGN KEY(user_id) REFERENCES Users(user_id));");
 $create_credentials->execute();
 $create_credentials->close();
 
@@ -166,8 +166,8 @@ $insert_role->close();
 
 /* Customers */ /*EDIT ARUGMENTS BASED OFF OF TABLE*/
 $insert_customers = $db_connection->prepare(
-        "INSERT INTO customers
-                (customer_id, first_name, last_name, email, phone, address, city, country, created_at) VALUES(?,?,?,?,?,?,?,?,?)");
+	"INSERT INTO customers
+		(customer_id, first_name, last_name, email, phone, address, city, country, created_at) VALUES(?,?,?,?,?,?,?,?,?,);");
 $insert_customers->bind_param("issssssss", $customer_id, $first_name, $last_name, $email, $phone, $address,$city, $country,$created_at);
 $first_name = "micheal";
 $last_name = "jackson";
@@ -213,7 +213,7 @@ $country = "AK";
 $created_at = date("Y-m-d H:i:s");
 $insert_customers->execute();
 
-$insert_customers->close();
+$insert_contacts->close();
 
 /* Users */
 $insert_users = $db_connection->prepare(
