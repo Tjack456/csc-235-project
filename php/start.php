@@ -108,10 +108,6 @@ $create_customers->execute();
 $create_customers->close();
 
 
-
-
-
-
 /* Below Are Tables That Have Foreign Keys */
 /* ------------------------------------------ */
 
@@ -170,8 +166,8 @@ $insert_role->close();
 /* Customers */ /*EDIT ARUGMENTS BASED OFF OF TABLE*/
 $insert_customers = $db_connection->prepare(
 	"INSERT INTO customers
-		(customer_id, first_name, last_name, email, phone, address, city, country, created_at) VALUES(?,?,?,?,?,?,?,?,?,?,?);");
-$insert_customers->bind_param("isssssssss", $customer_id, $first_name, $last_name, $email, $phone, $address,$city, $country,$created_at);
+		(customer_id, first_name, last_name, email, phone, address, city, country, created_at) VALUES(?,?,?,?,?,?,?,?,?,);");
+$insert_customers->bind_param("issssssss", $customer_id, $first_name, $last_name, $email, $phone, $address,$city, $country,$created_at);
 $first_name = "micheal";
 $last_name = "jackson";
 $email = "michealjackson@example.com";
