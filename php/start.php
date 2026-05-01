@@ -101,7 +101,7 @@ $create_customers = $db_connection->prepare(
         address varchar(255),
         city varchar(100),
         country varchar(100) NOT NULL DEFAULT 'USA',
-         created_at TIMESTAMP NOT NULL DEFAULT NOW()
+        created_at TIMESTAMP NOT NULL DEFAULT NOW()
         PRIMARY KEY(customer_id));");
 $create_customers->execute();
 $create_customers->close();
