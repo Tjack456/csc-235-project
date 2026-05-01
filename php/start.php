@@ -92,6 +92,7 @@ $create_contacts->execute();
 $create_contacts->close();
 
 /* Customers */
+
 $create_customers = $db_connection->prepare(
     "CREATE OR REPLACE TABLE Customers(
         customer_id int NOT NULL AUTO_INCREMENT,
@@ -103,7 +104,7 @@ $create_customers = $db_connection->prepare(
         city varchar(100),
         country varchar(100) NOT NULL DEFAULT 'USA',
         created_at TIMESTAMP NOT NULL DEFAULT NOW(),
-        PRIMARY KEY(customer_id));");
+        PRIMARY KEY(customer_id))");
 $create_customers->execute();
 $create_customers->close();
 
