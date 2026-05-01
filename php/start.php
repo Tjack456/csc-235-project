@@ -38,7 +38,7 @@ $prep_stmt->execute();
 $prep_stmt->close();
 
 /* Change to the created database */
-$db_connection->select_db("login_db");
+$db_connection->select_db("Login DB");
 
 /* Drop all tables for clean install */
 $db_connection->query('SET foreign_key_checks = 0');
@@ -90,10 +90,10 @@ $create_contacts = $db_connection->prepare(
         PRIMARY KEY(contact_id));");
 $create_contacts->execute();
 $create_contacts->close();
-/* Customers */
+
 /* Customers */
 $create_customers = $db_connection->prepare(
-    "CREATE OR REPLACE TABLE customers(
+    "CREATE OR REPLACE TABLE Customers(
         customer_id int NOT NULL AUTO_INCREMENT,
         first_name varchar(50) NOT NULL,
         last_name varchar(50) NOT NULL,
@@ -103,7 +103,7 @@ $create_customers = $db_connection->prepare(
         city varchar(100),
         country varchar(100) NOT NULL DEFAULT 'USA',
         created_at TIMESTAMP NOT NULL DEFAULT NOW(),
-        PRIMARY KEY(customer_id))");
+        PRIMARY KEY(customer_id));");
 $create_customers->execute();
 $create_customers->close();
 
