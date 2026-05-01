@@ -101,7 +101,7 @@ $create_customers = $db_connection->prepare(
         address varchar(255),
         city varchar(100),
         country varchar(100) NOT NULL DEFAULT 'USA',
-         created_at TIMESTAMP NOT NULL DEFAULT NOW(),
+         created_at TIMESTAMP NOT NULL DEFAULT NOW()
         PRIMARY KEY(customer_id));");
 $create_customers->execute();
 $create_customers->close();
@@ -162,49 +162,54 @@ $insert_role->execute();
 
 $insert_role->close();
 
-/* Contacts */
-$insert_contacts = $db_connection->prepare(
-	"INSERT INTO Contacts
-		(contact_id, last_name, first_name, email, phone, street_1, street_2, city, state_code, post_code, updated) VALUES(?,?,?,?,?,?,?,?,?,?,?);");
-$insert_contacts->bind_param("issssssssis", $contact_id, $last_name, $first_name, $email, $phone, $street_1, $street_2, $city, $state_code, $post_code, $updated);
-$contact_id = 1;
-$last_name = "Doe";
-$first_name = "John";
-$email = "johndoe@example.com";
-$phone = "123-456-7890";
-$street_1 = "123 Main St";
-$street_2 = "";
-$city = "Anytown";
-$state_code = "CA";
-$post_code = 12345;
-$updated = date("Y-m-d H:i:s");
-$insert_contacts->execute();
+/* Customers */ /*EDIT ARUGMENTS BASED OFF OF TABLE*/
+$insert_customers = $db_connection->prepare(
+	"INSERT INTO customers
+		(customer_id, first_name, last_name, email, phone, address, city, country, created_at) VALUES(?,?,?,?,?,?,?,?,?,?,?);");
+$insert_customers->bind_param("isssssssss", $customer_id, $first_name, $last_name, $email, $phone, $address,$city, $country,$created_at);
+$first_name = "micheal";
+$last_name = "jackson";
+$email = "michealjackson@example.com";
+$phone = "452-999-4629";
+$address = "309 Hehe St";
+$city = "Billie";
+$country = "CA";
+$created_at = date("Y-m-d H:i:s");
+$insert_customers->execute();
 
-$contact_id = 2;
-$last_name = "Smith";
-$first_name = "Jane";
-$email = "janesmith@example.com";
-$phone = "987-654-3210";
-$street_1 = "456 Elm St";
-$street_2 = "Apt 2";
-$city = "Othertown";
-$state_code = "NY";
-$post_code = 54321;
-$updated = date("Y-m-d H:i:s");
-$insert_contacts->execute();
 
-$contact_id = 3;
-$last_name = "Brown";
-$first_name = "Charlie";
-$email = "charliebrown@example.com";
-$phone = "555-555-5555";
-$street_1 = "789 Oak St";
-$street_2 = "";
-$city = "Sometown";
-$state_code = "TX";
-$post_code = 67890;
-$updated = date("Y-m-d H:i:s");
-$insert_contacts->execute();
+$customer_id = 2;
+$first_name = "Tyler";
+$last_name = "johnson";
+$email = "TylerJohnson@example.com";
+$phone = "694-394-6979";
+$address = "123 bone St";
+$city = "bridgeport";
+$country = "CT";
+$created_at = date("Y-m-d H:i:s");
+$insert_customers->execute();
+
+$customer_id = 3;
+$first_name = "Berry";
+$last_name = "jones";
+$email = "Berryjones@example.com";
+$phone = "403-102-5292";
+$address = "432 apple St";
+$city = "Hamden";
+$country = "CA";
+$created_at = date("Y-m-d H:i:s");
+$insert_customers->execute();
+
+$customer_id = 4;
+$first_name = "Jorge";
+$last_name = "Sampedro";
+$email = "Jorgesampedro@example.com";
+$phone = "083-737-1010";
+$address = "452 Jersey St";
+$city = "Jetson";
+$country = "AK";
+$created_at = date("Y-m-d H:i:s");
+$insert_customers->execute();
 
 $insert_contacts->close();
 
