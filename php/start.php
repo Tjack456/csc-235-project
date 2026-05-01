@@ -104,17 +104,13 @@ $create_customers = $db_connection->prepare(
         country varchar(100) NOT NULL DEFAULT 'USA',
         created_at TIMESTAMP NOT NULL DEFAULT NOW(),
         PRIMARY KEY(customer_id))");
-
-if (!$create_customers) {
-    die("Prepare failed: " . $db_connection->error);
-}
-
-if (!$create_customers->execute()) {
-    die("Execute failed: " . $create_customers->error);
-}
-
+$create_customers->execute();
 $create_customers->close();
-echo "Customers table created successfully.<br>";
+
+
+
+
+
 
 /* Below Are Tables That Have Foreign Keys */
 /* ------------------------------------------ */
